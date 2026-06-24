@@ -1,0 +1,8 @@
+{
+  "name": "Remix: Smart Meal Planner",
+  "description": "Plan Smart, Eat Healthy. A modern web application to plan meals, track calories, and generate shopping lists.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

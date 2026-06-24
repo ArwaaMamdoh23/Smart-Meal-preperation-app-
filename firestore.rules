@@ -1,0 +1,34 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is the owner of the user-scoped document path
+    function isOwner(userId) {
+      return request.auth != null && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id.size() > 0 && id.size() <= 128;
+    }
+
+    match /users/{userId} {
+      allow read, write: if isOwner(userId);
+
+      match /meals/{mealId} {
+        allow read, write: if isOwner(userId) && isValidId(mealId);
+      }
+
+      match /plannedMeals/{plannedId} {
+        allow read, write: if isOwner(userId) && isValidId(plannedId);
+      }
+
+      match /shoppingList/{itemId} {
+        allow read, write: if isOwner(userId) && isValidId(itemId);
+      }
+
+      match /tracking/{date} {
+        allow read, write: if isOwner(userId) && isValidId(date);
+      }
+    }
+  }
+}

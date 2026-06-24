@@ -1,0 +1,91 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile data and settings",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "dailyCalorieGoal": { "type": "integer" },
+        "waterIntakeGoal": { "type": "integer" },
+        "profilePicture": { "type": "string" },
+        "isDarkMode": { "type": "boolean" },
+        "notificationsEnabled": { "type": "boolean" }
+      },
+      "required": ["name", "dailyCalorieGoal", "waterIntakeGoal"]
+    },
+    "Meal": {
+      "title": "Meal",
+      "description": "A recipe/meal option",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "ingredients": { "type": "array" },
+        "calories": { "type": "integer" },
+        "prepTime": { "type": "integer" },
+        "notes": { "type": "string" },
+        "isFavorite": { "type": "boolean" }
+      },
+      "required": ["id", "name", "category", "ingredients", "calories", "prepTime", "isFavorite"]
+    },
+    "PlannedMeal": {
+      "title": "PlannedMeal",
+      "description": "A scheduled meal on the calendar",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "day": { "type": "string" },
+        "category": { "type": "string" },
+        "mealId": { "type": "string" }
+      },
+      "required": ["id", "day", "category", "mealId"]
+    },
+    "ShoppingItem": {
+      "title": "ShoppingItem",
+      "description": "An item in the grocery list",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "isPurchased": { "type": "boolean" },
+        "isCustom": { "type": "boolean" }
+      },
+      "required": ["id", "name", "isPurchased", "isCustom"]
+    },
+    "DailyTracking": {
+      "title": "DailyTracking",
+      "description": "Water intake and completed meals for a day",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "waterGlasses": { "type": "integer" },
+        "completedMealIds": { "type": "array" }
+      },
+      "required": ["date", "waterGlasses", "completedMealIds"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "The user profile document"
+    },
+    "/users/{userId}/meals/{mealId}": {
+      "schema": "Meal",
+      "description": "Custom recipes added by the user"
+    },
+    "/users/{userId}/plannedMeals/{plannedId}": {
+      "schema": "PlannedMeal",
+      "description": "Meals planned on the user's weekly planner"
+    },
+    "/users/{userId}/shoppingList/{itemId}": {
+      "schema": "ShoppingItem",
+      "description": "The user's current shopping list"
+    },
+    "/users/{userId}/tracking/{date}": {
+      "schema": "DailyTracking",
+      "description": "Daily hydration and meal tracking data"
+    }
+  }
+}
